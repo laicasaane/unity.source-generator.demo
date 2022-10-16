@@ -2,8 +2,7 @@
     "name": "Project.Runtime",
     "rootNamespace": "Project.Runtime",
     "references": [
-        "Unity.TextMeshPro",
-        "UnityEngine.UI"
+        "UnitySourceGeneratorDemo"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
