@@ -1,0 +1,16 @@
+
+{
+    "name" : "com.laicasaane.unity-source-generator-demo",
+    "version" : "1.0.0",
+    "displayName" : "Unity Source Generator Demo",
+    "description" : "Shows how to use source generator in a UPM package",
+    "unity" : "2021.3",
+    "keywords" : [
+        "demo", "source generator", "codegen"
+    ],
+    "author" : {
+        "name" : "Laicasaane",
+        "email" : "",
+        "url"   : ""
+    }
+}
