@@ -57,7 +57,7 @@ For example, this is the relative path used in the demo (`ExampleSourceGenerator
         <DataFiles Include="$(ProjectDir)$(OutDir)*.dll" />
     </ItemGroup>
 -    <Copy SourceFiles="@(DataFiles)" DestinationFolder="<Relative_Path_To_Package_Folder>" SkipUnchangedFiles="true" />
-+    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(ProjectDir)..\..\..\UnitySourceGeneratorDemo\Plugins\" SkipUnchangedFiles="true" />
++    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(ProjectDir)../../../UnitySourceGeneratorDemo/Plugins/" SkipUnchangedFiles="true" />
 </Target>
 ```
 
