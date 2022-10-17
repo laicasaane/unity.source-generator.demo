@@ -21,19 +21,19 @@
 
 <br/>
 
-4. Create a new folder named `Source~` inside the package to contain the source code of source generating libraries
+4. Create a new folder named `Source~` inside the package to store the C# project of source generators
     - Unity will ignore any folder that ends with `~` (see [Hidden Assets](https://docs.unity3d.com/Manual/SpecialFolders.html))
 
 <br/>
 
-5. Inside the `Source~` folder, create a C# project for the source generating library
+5. Inside the `Source~` folder, create a C# project for the source generator
     - It must be a .NET standard library project that targets `.NET Standard 2.0`
     - It must use `Microsoft.CodeAnalysis.CSharp` version `3.8.0`
     - See [Source generators](https://docs.unity3d.com/Manual/roslyn-analyzers.html)
 
 <br/>
 
-6. Add this block to the `.csproj` of this library so whenever the library is built, it will automatically copy the result `.dll`s over to the UPM package
+6. Add this block to the `.csproj` file to automatically copy the built `.dll`s over to the UPM package
 
 ```xml
 <Target Name="CopyBuildArtifacts" AfterTargets="Build">
@@ -47,21 +47,29 @@
 <br/>
 
 7. Replace the value of `DestinationFolder` property with the actually relative path to the UPM package
-    - The relative path used in this demo can be found in `ExampleSourceGenerator.csproj`:
 
-    ```xml
-    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(ProjectDir)..\..\..\UnitySourceGeneratorDemo\Plugins\" SkipUnchangedFiles="true" />
-    ```
+
+For example, this is the relative path used in the demo (`ExampleSourceGenerator.csproj`):
+
+```diff
+<Target Name="CopyBuildArtifacts" AfterTargets="Build">
+    <ItemGroup>
+        <DataFiles Include="$(ProjectDir)$(OutDir)*.dll" />
+    </ItemGroup>
+-    <Copy SourceFiles="@(DataFiles)" DestinationFolder="<Relative_Path_To_Package_Folder>" SkipUnchangedFiles="true" />
++    <Copy SourceFiles="@(DataFiles)" DestinationFolder="$(ProjectDir)..\..\..\UnitySourceGeneratorDemo\Plugins\" SkipUnchangedFiles="true" />
+</Target>
+```
 
 <br/>
 
-8. When the library is built, locate the copied `.dll` and make sure that it is configured like this in Unity
+8. After building the source generator, locate its `.dll` in the `Relative_Path_To_Package_Folder` in Unity's Project window then configure it like this in the Inspector window:
 
 ![Source Generator Library Configuration](Imgs/source-generator-library-config.png)
 
 <br/>
 
-9. Open the `.dll.meta` file by any text editor and add these 2 lines right under the `guid`
+9. Open the corresponding `.dll.meta` file by any text editor and add these 2 lines right under the `guid`
 
 ```yaml
 labels:
